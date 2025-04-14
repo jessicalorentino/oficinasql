@@ -26,7 +26,6 @@ CREATE DATABASE oficina;
 
 USE oficina;
 
--- Tabela Clientes
 CREATE TABLE clientes (
     cliente_id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
@@ -34,14 +33,12 @@ CREATE TABLE clientes (
     telefone VARCHAR(15) NOT NULL
 );
 
--- Tabela Funcionários
 CREATE TABLE funcionarios (
     funcionario_id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
     cargo VARCHAR(50) NOT NULL
 );
 
--- Tabela Veículos
 CREATE TABLE veiculos (
     veiculo_id INT PRIMARY KEY AUTO_INCREMENT,
     cliente_id INT,
@@ -50,14 +47,12 @@ CREATE TABLE veiculos (
     FOREIGN KEY (cliente_id) REFERENCES clientes(cliente_id)
 );
 
--- Tabela Serviços
 CREATE TABLE servicos (
     servico_id INT PRIMARY KEY AUTO_INCREMENT,
     descricao VARCHAR(100) NOT NULL,
     valor DECIMAL(10,2) NOT NULL
 );
 
--- Tabela Ordens de Serviço
 CREATE TABLE ordens_servico (
     os_id INT PRIMARY KEY AUTO_INCREMENT,
     veiculo_id INT,
@@ -68,7 +63,6 @@ CREATE TABLE ordens_servico (
     FOREIGN KEY (funcionario_id) REFERENCES funcionarios(funcionario_id)
 );
 
--- Tabela Itens de OS
 CREATE TABLE itens_os (
     os_id INT,
     servico_id INT,
@@ -79,7 +73,6 @@ CREATE TABLE itens_os (
     FOREIGN KEY (servico_id) REFERENCES servicos(servico_id)
 );
 
--- Tabela Pagamentos
 CREATE TABLE pagamentos (
     pagamento_id INT PRIMARY KEY AUTO_INCREMENT,
     os_id INT,
@@ -94,37 +87,32 @@ CREATE TABLE pagamentos (
 Aqui estão alguns dados de exemplo para começar a testar o banco de dados.
 
 ```sql
--- Inserir Clientes
+
 INSERT INTO clientes (nome, email, telefone) VALUES
 ('Carlos Silva', 'carlos@gmail.com', '123456789'),
 ('Maria Oliveira', 'maria@yahoo.com', '987654321');
 
--- Inserir Funcionários
+
 INSERT INTO funcionarios (nome, cargo) VALUES
 ('João Santos', 'Mecânico'),
 ('Ana Pereira', 'Assistente');
 
--- Inserir Veículos
 INSERT INTO veiculos (cliente_id, modelo, placa) VALUES
 (1, 'Fusca', 'ABC1234'),
 (2, 'Civic', 'XYZ5678');
 
--- Inserir Serviços
 INSERT INTO servicos (descricao, valor) VALUES
 ('Troca de Óleo', 100.00),
 ('Alinhamento de Rodas', 150.00);
 
--- Inserir Ordens de Serviço
 INSERT INTO ordens_servico (veiculo_id, funcionario_id, data, status) VALUES
 (1, 1, '2025-04-10', 'Concluído'),
 (2, 2, '2025-04-11', 'Em andamento');
 
--- Inserir Itens de OS
 INSERT INTO itens_os (os_id, servico_id, quantidade, preco_total) VALUES
 (1, 1, 1, 100.00),
 (2, 2, 1, 150.00);
 
--- Inserir Pagamentos
 INSERT INTO pagamentos (os_id, data_pagamento, valor_pago) VALUES
 (1, '2025-04-10', 100.00);
 ```
